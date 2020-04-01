@@ -1,0 +1,45 @@
+name: askmweb
+channels:
+  - defaults
+dependencies:
+  - certifi=2019.11.28=py36_1
+  - pip=20.0.2=py36_1
+  - python=3.6.10=h9f7ef89_1
+  - setuptools=46.1.1=py36_0
+  - sqlite=3.31.1=he774522_0
+  - vc=14.1=h0510ff6_4
+  - vs2015_runtime=14.16.27012=hf0eaf9b_1
+  - wheel=0.34.2=py36_0
+  - wincertstore=0.2=py36h7fe50ca_0
+  - pip:
+    - asgi-redis==1.4.3
+    - asgiref==3.2.7
+    - attrs==19.3.0
+    - autobahn==20.3.1
+    - automat==20.2.0
+    - cffi==1.14.0
+    - channels==2.4.0
+    - constantly==15.1.0
+    - cryptography==2.8
+    - daphne==2.4.1
+    - django==3.0.4
+    - djangorestframework==3.11.0
+    - hyperlink==19.0.0
+    - idna==2.9
+    - incremental==17.5.0
+    - msgpack-python==0.5.6
+    - pyasn1==0.4.8
+    - pyasn1-modules==0.2.8
+    - pycparser==2.20
+    - pyhamcrest==2.0.2
+    - pyopenssl==19.1.0
+    - pytz==2019.3
+    - redis==2.10.6
+    - service-identity==18.1.0
+    - six==1.14.0
+    - sqlparse==0.3.1
+    - twisted==20.3.0
+    - txaio==20.3.1
+    - zope.interface==5.0.1
+prefix: D:\Anaconda\envs\askmweb
+
