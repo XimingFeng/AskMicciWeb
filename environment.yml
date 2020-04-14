@@ -2,15 +2,12 @@ name: askmweb
 channels:
   - defaults
 dependencies:
-  - certifi=2019.11.28=py36_1
+  - certifi=2019.11.28
   - pip=20.0.2=py36_1
-  - python=3.6.10=h9f7ef89_1
-  - setuptools=46.1.1=py36_0
-  - sqlite=3.31.1=he774522_0
-  - vc=14.1=h0510ff6_4
-  - vs2015_runtime=14.16.27012=hf0eaf9b_1
-  - wheel=0.34.2=py36_0
-  - wincertstore=0.2=py36h7fe50ca_0
+  - python=3.6.10
+  - setuptools=46.1.1
+  - sqlite=3.31.1
+  - wheel=0.34.2
   - pip:
     - asgi-redis==1.4.3
     - asgiref==3.2.7
