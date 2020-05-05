@@ -4,47 +4,54 @@ from django.test import Client
 from django.test import TestCase
 from .consumers import ChatConsumer
 from channels.testing import WebsocketCommunicator
+from asgiref.sync import async_to_sync
+from asgiref.sync import sync_to_async
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.wait import WebDriverWait
-#
-# class ChatTests(TestCase):
-#
-#     def test_chat_as_defaut(self):
-#         """ Send get request to /chat/
-#         :return:
-#         """
-#         client = Client()
-#         response = client.get("/")
-#         self.assertTemplateUsed(response, 'chat/index.html')
-#
-#     def test_user_profile_template(self):
-#         """ Send get request to /chat/
-#         :return:
-#         """
-#         client = Client()
-#         response = client.get("/chat/")
-#         self.assertTemplateUsed(response, 'chat/index.html')
-#
-#     def test_chatroom_template(self):
-#         """ Send POST Request to chat/room
-#         :return:
-#         """
-#         client = Client()
-#         response = client.post("/chat/room/", {})
-#         self.assertTemplateUsed(response, 'chat/room.html')
 
-@pytest.mark.asyncio
-async def test_connect_websocket_consumer():
-    """ Test receive web socket with correct handler
-    :return:
-    """
-    pass
-    communicator = WebsocketCommunicator(ChatConsumer, "ws/chat/testroom/")
-    connected, subprotocol = await communicator.connect()
-    print(connected, subprotocol)
-    assert connected
+
+
+
+class ChatTests(TestCase):
+
+    @pytest.mark.asyncio
+    async def test_connect_websocket_consumer(self):
+        """ Test receive web socket with correct handler
+        :return:
+        """
+        communicator = WebsocketCommunicator(ChatConsumer, "ws/chat/testroom/")
+        connected = await communicator.connect()
+        print("--------------- ", connected)
+        self.assertTrue(connected)
+        await communicator.disconnect()
+
+    # def test_chat_as_defaut(self):
+    #     """ Send get request to /chat/
+    #     :return:
+    #     """
+    #     client = Client()
+    #     response = client.get("/")
+    #     self.assertTemplateUsed(response, 'chat/index.html')
+    #
+    # def test_user_profile_template(self):
+    #     """ Send get request to /chat/
+    #     :return:
+    #     """
+    #     client = Client()
+    #     response = client.get("/chat/")
+    #     self.assertTemplateUsed(response, 'chat/index.html')
+    #
+    # def test_chatroom_template(self):
+    #     """ Send POST Request to chat/room
+    #     :return:
+    #     """
+    #     client = Client()
+    #     response = client.post("/chat/room/", {})
+    #     self.assertTemplateUsed(response, 'chat/room.html')
+
+
 
 
 
