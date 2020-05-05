@@ -6,22 +6,26 @@
     <title>Chat Rooms</title>
 </head>
 <body>
-    What chat room would you like to enter?<br>
-    <input id="room-name-input" type="text" size="100"><br>
-    <input id="room-name-submit" type="button" value="Enter">
+    <form action="chat/room/" method="post">
+        {% csrf_token %}
+
+        <label for="email_input"> Email: </label> <br>
+        <input id="email_input" type="email" name="email"><br>
+
+        <label for="first_name_input">First Name: </label> <br>
+        <input id="first_name_input" name="first_name"> <br>
+
+        <label for="last_name_input">Last Name: </label> <br>
+        <input id="last_name_input" name="last_name"> <br>
+
+        <label for="phone_num_input">Phone Number: </label> <br>
+        <input id="phone_num_input" type="number" name="phone_num"> <br>
+        <input id="submit_btn" type="submit" action value="Enter">
+    </form>
 
     <script>
-        document.querySelector('#room-name-input').focus();
-        document.querySelector('#room-name-input').onkeyup = function(e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#room-name-submit').click();
-            }
-        };
+        document.querySelector('#email_input').focus();
 
-        document.querySelector('#room-name-submit').onclick = function(e) {
-            var roomName = document.querySelector('#room-name-input').value;
-            window.location.pathname = '/chat/' + roomName + '/';
-        };
     </script>
 </body>
 </html>
