@@ -7,24 +7,21 @@ from channels.testing import WebsocketCommunicator
 from channels.routing import URLRouter
 from django.conf.urls import url
 import pytest
-
-
+import json
 
 @pytest.mark.asyncio
 async def test_connect_websocket_consumer():
-    """ Test receive web socket with correct handler
-    :return:
+    """ Test initial websocket connection, welcome message receiving
     """
     application = URLRouter([
         url(r'ws/chat/(?P<room_name>\w+)/$', ChatConsumer),
-
     ])
     communicator = WebsocketCommunicator(application, "ws/chat/testroom/")
     connected, _ = await communicator.connect()
     assert connected
-    # await  communicator.receive_from()
-    # print(connected)
-    # self.assertIsNotNone(connected)
+    welcome_msg_json = await communicator.receive_from()
+    message = json.loads(welcome_msg_json)["message"]
+    assert message == "Welcome! How can I help you?"
     await communicator.disconnect()
 
 
