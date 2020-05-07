@@ -13,8 +13,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
         await self.accept()
-        welcome_msg = "Welcome! How can I help you?"
-        await self.send_chat_msg_to_group(welcome_msg)
 
     async def send_chat_msg_to_group(self, msg: str):
         """ Send chat message to group
