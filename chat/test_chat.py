@@ -41,7 +41,6 @@ async def test_sync_own_msg():
     assert received_msg == "test message"
     await communicator.disconnect()
 
-
 @pytest.mark.asyncio
 async def test_sync_msg_btw_comsumers():
     """ When one clients send message, the other client that is in the same room (same group) should receive it too
@@ -74,7 +73,7 @@ class ChatTests(TestCase):
         """
         client = Client()
         response = client.get("/")
-        self.assertTemplateUsed(response, 'chat/index.html')
+        self.assertTemplateUsed(response, 'chat/room.html')
 
     def test_user_profile_template(self):
         """ Send get request to /chat/
