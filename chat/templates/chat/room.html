@@ -14,7 +14,7 @@
         <input id="chat-message-input" type="text" size="100"><br>
     </div>
     <div>
-        <input id="chat-message-submit" type="button" value="Send">
+        <input id="msg_send_btn" type="button" value="Send">
     </div>
 
 
@@ -42,7 +42,7 @@
             }
         };
 
-        document.querySelector('#chat-message-submit').onclick = function(e) {
+        document.querySelector('#msg_send_btn').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
             chatSocket.send(JSON.stringify({
