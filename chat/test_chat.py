@@ -6,7 +6,9 @@ from .consumers import ChatConsumer
 from channels.testing import WebsocketCommunicator
 from channels.routing import URLRouter
 from django.conf.urls import url
+from .models import Room, ChatLine
 import pytest
+import datetime
 import json
 
 
@@ -21,6 +23,25 @@ async def test_ws_connection():
     connected, _ = await communicator.connect()
     assert connected
     await communicator.disconnect()
+
+class ChatTests(TestCase):
+
+    def test_chat_as_defaut(self):
+        """ Send get request to /chat/
+        :return:
+        """
+        client = Client()
+        response = client.get("/")
+        self.assertTemplateUsed(response, 'chat/room.html')
+
+
+class RoomTests(TestCase):
+
+    def test_str(self):
+        start_datetime = datetime.datetime.now()
+        stop_datetime = start_datetime + datetime.timedelta(minutes=10)
+        room = Room(create_datetime=start_datetime, end_datetime=stop_datetime)
+
 
 #
 # @pytest.mark.asyncio
@@ -65,15 +86,7 @@ async def test_ws_connection():
 #     await communicator1.disconnect()
 #     await communicator2.disconnect()
 #
-class ChatTests(TestCase):
 
-    def test_chat_as_defaut(self):
-        """ Send get request to /chat/
-        :return:
-        """
-        client = Client()
-        response = client.get("/")
-        self.assertTemplateUsed(response, 'chat/room.html')
 
 
 #     def test_user_profile_template(self):

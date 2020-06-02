@@ -15,6 +15,7 @@ class Room(models.Model):
             .format(self.session_string, self.create_datetime, self.end_datetime)
         return return_str
 
+
 class ChatLine(models.Model):
     message_content = models.CharField(max_length=200)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
