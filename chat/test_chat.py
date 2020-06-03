@@ -24,44 +24,6 @@ async def test_ws_connection():
     assert connected
     await communicator.disconnect()
 
-class ChatTests(TestCase):
-
-    def test_chat_as_defaut(self):
-        """ Send get request to /chat/
-        :return:
-        """
-        client = Client()
-        response = client.get("/")
-        self.assertTemplateUsed(response, 'chat/room.html')
-
-
-class RoomTests(TestCase):
-
-    def test_str(self):
-        start_datetime = datetime.datetime.now()
-        stop_datetime = start_datetime + datetime.timedelta(minutes=10)
-        room = Room(create_datetime=start_datetime, end_datetime=stop_datetime)
-
-
-#
-# @pytest.mark.asyncio
-# async def test_sync_own_msg():
-#     """ Once client send a message, it should also receive its own message back for the chat history purpose
-#     """
-#     application = URLRouter([
-#         url(r'ws/chat/(?P<room_name>\w+)/$', ChatConsumer),
-#     ])
-#     communicator = WebsocketCommunicator(application, "ws/chat/testroom/")
-#     connected, _ = await communicator.connect()
-#     assert connected
-#     test_msg = {"message": "test message"}
-#     test_msg_json = json.dumps(test_msg)
-#     await communicator.send_to(test_msg_json)
-#     received_msg_json = await communicator.receive_from()
-#     received_msg = json.loads(received_msg_json)["message"]
-#     assert received_msg == "test message"
-#     await communicator.disconnect()
-#
 # @pytest.mark.asyncio
 # async def test_sync_msg_btw_comsumers():
 #     """ When one clients send message, the other client that is in the same room (same group) should receive it too
@@ -85,6 +47,49 @@ class RoomTests(TestCase):
 #     assert received_message == "test message"
 #     await communicator1.disconnect()
 #     await communicator2.disconnect()
+
+# @pytest.mark.asyncio
+# async def test_sync_own_msg():
+#     """ Once client send a message, it should also receive its own message back for the chat history purpose
+#     """
+#     application = URLRouter([
+#         url(r'ws/chat/(?P<room_name>\w+)/$', ChatConsumer),
+#     ])
+#     communicator = WebsocketCommunicator(application, "ws/chat/testroom/")
+#     connected, _ = await communicator.connect()
+#     assert connected
+#     test_msg = {"message": "test message"}
+#     test_msg_json = json.dumps(test_msg)
+#     await communicator.send_to(test_msg_json)
+#     received_msg_json = await communicator.receive_from()
+#     received_msg = json.loads(received_msg_json)["message"]
+#     assert received_msg == "test message"
+#     await communicator.disconnect()
+
+
+class ChatAppTests(TestCase):
+
+    def test_chat_as_defaut(self):
+        """ Send get request to /chat/
+        :return:
+        """
+        client = Client()
+        response = client.get("/")
+        self.assertTemplateUsed(response, 'chat/room.html')
+
+
+class RoomTests(TestCase):
+
+    def test_str(self):
+        start_datetime = datetime.datetime.now()
+        stop_datetime = start_datetime + datetime.timedelta(minutes=10)
+        room = Room(create_datetime=start_datetime, end_datetime=stop_datetime)
+
+
+#
+
+
+
 #
 
 

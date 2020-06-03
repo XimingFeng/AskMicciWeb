@@ -1,15 +1,19 @@
 import json
+from .models import Room
 from channels.generic.websocket import AsyncWebsocketConsumer
-
+import datetime
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         # self.room_name = self.scope['url_route']['kwargs']['room_name']
         # self.room_group_name = 'chat_%s' % self.room_name
-        self.room_group_name = "test"
+        start_datetime = datetime.datetime.now()
+        room = Room(create_datetime=start_datetime)
+        self.session_str = room.session_str
+
         # Join room group
         await self.channel_layer.group_add(
-            self.room_group_name,
+            self.session_str,
             self.channel_name
         )
         await self.accept()
@@ -21,7 +25,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         :return:
         """
         await self.channel_layer.group_send(
-            self.room_group_name,
+            self.self.session_str,
             {
                 'type': 'chat_message',
                 'message': msg
@@ -31,7 +35,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def disconnect(self, code):
         # Leave room group
         await self.channel_layer.group_discard(
-            self.room_group_name,
+            self.session_str,
             self.channel_name
         )
 
