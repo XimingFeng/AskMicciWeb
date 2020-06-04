@@ -7,9 +7,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         # self.room_name = self.scope['url_route']['kwargs']['room_name']
         # self.room_group_name = 'chat_%s' % self.room_name
-        start_datetime = datetime.datetime.now()
-        room = Room(create_datetime=start_datetime)
-        self.session_str = room.session_str
+        if "session_str" in self.scope["session"]:
+            self.session_str = self.scope["session"]["session_str"]
+        else:
+            start_datetime = datetime.datetime.now()
+            self.room = Room(create_datetime=start_datetime)
+            self.session_str = self.room.session_str
+            self.scope["session"]["session_str"] = self.session_str
+            self.scope["session"].save()
+
 
         # Join room group
         await self.channel_layer.group_add(
@@ -25,7 +31,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         :return:
         """
         await self.channel_layer.group_send(
-            self.self.session_str,
+            self.session_str,
             {
                 'type': 'chat_message',
                 'message': msg
