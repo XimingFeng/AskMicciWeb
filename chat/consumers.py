@@ -1,12 +1,11 @@
 import json
 from .models import Room
 from channels.generic.websocket import AsyncWebsocketConsumer
-from asgiref.sync import sync_to_async
+from channels.db import database_sync_to_async
 import datetime
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        print(self.scope)
         if "session_str" in self.scope["session"]:
             self.session_str = self.scope["session"]["session_str"]
             print("Old session found")
@@ -15,10 +14,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.room = Room(create_datetime=start_datetime)
             self.session_str = self.room.session_str
             self.scope["session"]["session_str"] = self.session_str
-            print("Create new session")
-            sync_to_async(self.scope["session"].save)()
+            print("Create new session, with room session string ", self.session_str)
+            await database_sync_to_async(self.room.save())
+            await database_sync_to_async(self.scope["session"].save)()
+        if self.scope["user"].is_autheticated:
+            pass
+        else:
+            print("This is not authenticated user")
 
-        # Join room group
         await self.channel_layer.group_add(
             self.session_str,
             self.channel_name
